@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export class github{
     #repos = [];
+    #avatar = null;
 
     async getRepository(){
         try {
@@ -20,17 +21,28 @@ export class github{
         for(let i = 0; i < 5; i++){
             if (repos[i]) {
                 console.log(repos[i].description);
+                this.setRepos(repos[i].name);
                 this.setRepos(repos[i].description);
             }
         }
+        this.setAvatar(repos[0].owner.avatar_url)
     }
 
     setRepos(dataArray){
         this.#repos.push(dataArray);
     }
 
+    setAvatar(url){
+        this.#avatar = url;
+    }
+
     async getRepos(){
         await this.getRepository();
         return this.#repos;
+    }
+
+    async getAvatar(){
+        await this.getRepository();
+        return this.#avatar;
     }
 }
