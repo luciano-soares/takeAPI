@@ -1,31 +1,24 @@
-import request from 'request';
+import axios from 'axios';
 
 export class github{
     #repos = [];
 
     async getRepository(){
-        let options = {
-            'method': 'GET',
-            'url': 'https://api.github.com/users/takenet/repos?sort=created&direction=asc',
-            'headers': {
-              "User-Agent": "luciano-soares"
-            }
-        };
-        request(options, (error, response) => {
-            if (error) {
-              throw new Error(error);
-            }
-      
-            const repository = JSON.parse(response.body);
-            //console.log(repository["items"][0]["description"])
-            this.getFiveFirstRepos(repository);
-        });
+        try {
+            const response = await axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc');
+            this.getFiveFirstRepos(response.data);
+        } 
+        catch (error) {
+            console.error(error);
+        }
     }
 
-    getFiveFirstRepos(repos){
+    async getFiveFirstRepos(repos){
         for(let i = 0; i < 5; i++){
-            console.log(repos[i]["description"])
-            this.setRepos(repos[i]["description"])
+            if (repos[i]) {
+                console.log(repos[i].description);
+                this.setRepos(repos[i].description);
+            }
         }
     }
 

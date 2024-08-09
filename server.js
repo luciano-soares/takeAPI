@@ -3,11 +3,12 @@ import { github } from './github.js';
 
 const server = fastify()
 
-server.get('/', () => {
-    const git = new github()
-    let returnJSON = {}
+server.get('/', async () => {
+    const git = new github();
+    let returnJSON = {};
 
-    let repositorys = git.getRepos()
+    const repositorys = await git.getRepos();
+
     console.log(repositorys);
     returnJSON.repositorio0 = repositorys[0];
     returnJSON.repositorio1 = repositorys[1];
@@ -19,5 +20,6 @@ server.get('/', () => {
 })
 
 server.listen({
-    port: 5000
+    port: 5000,
+    host: '0.0.0.0'
 })
