@@ -5,7 +5,10 @@ export class github{
 
     async getRepository(){
         try {
-            const response = await axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc');
+            const headers = {
+                'Authorization': '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'
+            }
+            const response = await axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc', { headers });
             this.getFiveFirstRepos(response.data);
         } 
         catch (error) {
