@@ -3,7 +3,7 @@ import request from 'request';
 export class github{
     #repos = [];
 
-    getRepository(){
+    async getRepository(){
         let options = {
             'method': 'GET',
             'url': 'https://api.github.com/users/takenet/repos?sort=created&direction=asc',
@@ -33,7 +33,8 @@ export class github{
         this.#repos.push(dataArray);
     }
 
-    getRepos(){
+    async getRepos(){
+        await this.getRepository();
         return this.#repos;
     }
 }
