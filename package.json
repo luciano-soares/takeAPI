@@ -13,6 +13,7 @@
     "author": "Luciano Soares",
     "license": "ISC",
     "dependencies": {
-        "fastify": "^4.28.1"
+        "fastify": "^4.28.1",
+        "request": "^2.88.2"
     }
 }
