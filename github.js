@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+// Author: Luciano Soares
+//
+//
+// Purpose: This class was developer for Take Blip. This class handle all returns from github's API, as:
+//          - Get avatar URL
+//          - Get 5 oldest repositorys
+//
+//
+//
+//
+// Error handling:
+//
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 import axios from 'axios';
 
 export class github{
@@ -5,6 +23,8 @@ export class github{
     #avatar = null;
 
     async getRepository(){
+        //Request to get all repository of the take github.
+        // To change the github account, simple chage the string 'https://api.github.com/users/takenet/repos?sort=created&direction=asc' to ''https://api.github.com/users/{{username}}/repos?sort=created&direction=asc''
         try {
             const headers = {
                 'Authorization': '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'
@@ -18,6 +38,7 @@ export class github{
     }
 
     async getFiveFirstRepos(repos){
+        //Method created to get the 5 oldest repository from previous request made on method "getRepository"
         for(let i = 0; i < 5; i++){
             if (repos[i]) {
                 console.log(repos[i].description);
